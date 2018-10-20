@@ -1,0 +1,16 @@
+#! /usr/bin/make -f
+
+override_dh_auto_install:
+
+	# Serviço para habilitar o firewall no reboot via systemd
+	mkdir -p debian/maratona-firstboot/lib/systemd/system/
+	cp maratona-firstboot.service debian/maratona-firstboot/lib/systemd/system/
+
+	mkdir -p debian/maratona-firstboot/usr/lib/maratona-firstboot
+	cp -r maratona-config debian/maratona-firstboot/usr/lib/maratona-firstboot
+	chmod a+rx debian/maratona-firstboot/usr/lib/maratona-firstboot/maratona-config
+
+
+%:
+	echo "$@"
+	dh $@

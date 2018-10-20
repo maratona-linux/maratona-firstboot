@@ -1,0 +1,20 @@
+# Serviço do maratona-firewall para ser executado na
+# inicialização do sistema. Esse serviço faz com que o firewall da máquina sempre
+# inicie ativado, cabendo ao administrador da máquina desativa-lo.
+
+[Unit]
+Description=Maratona First Service
+Before=gdm.service gdm3.service plymouth.service
+After=networking.service getty@tty2.service snapd.service
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/usr/lib/maratona-firstboot/maratona-config
+StandardInput=tty
+TTYPath=/dev/tty3
+TTYReset=yes
+TTYVHangup=yes
+
+[Install]
+WantedBy=multi-user.target

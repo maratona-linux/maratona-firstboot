@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+# Habilitando o serviço do maratona-firewall para ser executado no boot do
+# sistema.
+systemctl enable maratona-firstboot.service
+
+exit 0

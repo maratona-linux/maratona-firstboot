@@ -1,0 +1,13 @@
+Source: maratona-firstboot
+Section: misc
+Priority: optional
+Maintainer: Bruno Ribas <brunoribas@utfpr.edu.br>
+Build-Depends: debhelper
+
+Package: maratona-firstboot
+Architecture: all
+Depends: maratona-firewall, maratona-submission
+Description: Firstboot configuration messages
+ This package asks a few questions regarding the local BOCA IP and SITE
+ password.
+ .

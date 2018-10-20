@@ -1,0 +1,17 @@
+maratona-firstboot (20181020.1) bionic; urgency=medium
+
+  * Service start after snapd
+
+ -- Bruno Cesar Ribas <brunoribas@gmail.com>  Sat, 20 Oct 2018 15:31:17 -0300
+
+maratona-firstboot (20181020) bionic; urgency=medium
+
+  * Bug fixes
+
+ -- Bruno Cesar Ribas <brunoribas@gmail.com>  Sat, 20 Oct 2018 10:55:14 -0300
+
+maratona-firstboot (20181019) bionic; urgency=medium
+
+  * maratona-firstboot created
+
+ -- Bruno Cesar Ribas <brunoribas@gmail.com>  Fri, 19 Oct 2018 09:14:46 -0300
