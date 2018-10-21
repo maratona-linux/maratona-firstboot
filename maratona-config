@@ -28,6 +28,9 @@ fi
 # reconfigure firewall anyway
 dpkg-reconfigure maratona-firewall
 
+#start firewall
+ufw start
+
 #force BOCAIP to be global.bombonera.org
 # XXX this is a workaround for ICPC-LATAM 2018, remove after this
 # competition
