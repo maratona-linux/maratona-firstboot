@@ -5,7 +5,7 @@
 [Unit]
 Description=Maratona First Service
 Before=gdm.service gdm3.service plymouth.service
-After=networking.service getty@tty2.service snapd.service
+After=networking.service getty@tty3.service snapd.service
 
 [Service]
 Type=oneshot
