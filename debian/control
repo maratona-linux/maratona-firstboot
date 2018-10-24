@@ -6,7 +6,7 @@ Build-Depends: debhelper
 
 Package: maratona-firstboot
 Architecture: all
-Depends: maratona-firewall, maratona-submission
+Depends: maratona-firewall, maratona-submission, whiptail
 Description: Firstboot configuration messages
  This package asks a few questions regarding the local BOCA IP and SITE
  password.
