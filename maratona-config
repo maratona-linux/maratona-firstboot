@@ -9,41 +9,39 @@ umask 0077
 echo "Starting firstboot configuration..."
 sleep 2
 
-dpkg-reconfigure keyboard-configuration
-dpkg-reconfigure tzdata
-
-TMPFILE=$(mktemp)
-BOCALOCALIP=$(< /etc/maratona-firewall/hosts/boca.localdomain)
-whiptail --title 'Maratona firstboot' --inputbox "Please inform your local BOCA IP" 10 40 $BOCALOCALIP 2>$TMPFILE
-NEWLOCALBOCA=$(< $TMPFILE)
-rm $TMPFILE
-
-if [[ ! -z "$NEWLOCALBOCA" ]] && [[ "$NEWLOCALBOCA" != "$BOCALOCALIP" ]] ;then
-  echo "$NEWLOCALBOCA" > /etc/maratona-firewall/hosts/boca.localdomain
-  ufw enable
-  #XXX Another workaround due to ICPC LATAM 2018
-  sed -i -e "s/global.bombonera.org/$NEWLOCALBOCA/g" /usr/share/applications/firefox_boca.desktop
-fi
-
+#XXX LATAM configuration
+rm -f /etc/maratona-firewall/hosts/boca.localdomain
 # reconfigure firewall anyway
 dpkg-reconfigure maratona-firewall
 
 #start firewall
 ufw enable
 
-#force BOCAIP to be global.bombonera.org
-# XXX this is a workaround for ICPC-LATAM 2018, remove after this
-# competition
-echo "BOCAIP=$(< /usr/share/maratona-firewall/hosts/global.bombonera.org)" > /etc/bocaip
+dpkg-reconfigure keyboard-configuration
+dpkg-reconfigure tzdata
+
+TMPFILE=$(mktemp)
+#BOCALOCALIP=$(< /etc/maratona-firewall/hosts/boca.localdomain)
+#whiptail --title 'Maratona firstboot' --inputbox "Please inform your local BOCA IP" 10 40 $BOCALOCALIP 2>$TMPFILE
+#NEWLOCALBOCA=$(< $TMPFILE)
+#rm $TMPFILE
+#
+#if [[ ! -z "$NEWLOCALBOCA" ]] && [[ "$NEWLOCALBOCA" != "$BOCALOCALIP" ]] ;then
+#  echo "$NEWLOCALBOCA" > /etc/maratona-firewall/hosts/boca.localdomain
+#  ufw enable
+#  #XXX Another workaround due to ICPC LATAM 2018
+#  sed -i -e "s/global.bombonera.org/$NEWLOCALBOCA/g" /usr/share/applications/firefox_boca.desktop
+#fi
+
 
 IDSUSCESS=0
-while (( IDSUSCESS == 0 )) && whiptail --title "Global BOCA" --yesno "Do you have your site password?" 10 40 ; do
-  whiptail --title "Global BOCA" --inputbox "Please inform your site username" 10 40 2>$TMPFILE
+while (( IDSUSCESS == 0 )); do
+  whiptail --title "Global BOCA" --inputbox "Please inform your SITE username" 10 40 2>$TMPFILE
   SEDEID=$(< $TMPFILE)
   rm $TMPFILE
 
   if [[ ! -z "$SEDEID" ]]; then
-    whiptail --title "Global BOCA" --passwordbox "Please inform your site password" 10 40 2>$TMPFILE
+    whiptail --title "Global BOCA" --passwordbox "Please inform your SITE password" 10 40 2>$TMPFILE
     SEDEPASS=$(< $TMPFILE)
     boca-auth-runs $SEDEID < $TMPFILE &> $TMPFILE.auth
     RET=$?
@@ -58,13 +56,13 @@ while (( IDSUSCESS == 0 )) && whiptail --title "Global BOCA" --yesno "Do you hav
   fi
 done
 
-if (( IDSUSCESS == 0 )); then
-  whiptail --title 'Maratona firstboot' --yesno "Would you like to disable the question regarding SITE username and password for future system boot?" 10 40
-  RET=$?
-  if (( RET == 0 )); then
-    systemctl disable maratona-firstboot.service
-  fi
-fi
+#if (( IDSUSCESS == 0 )); then
+#  whiptail --title 'Maratona firstboot' --yesno "Would you like to disable the question regarding SITE username and password for future system boot?" 10 40
+#  RET=$?
+#  if (( RET == 0 )); then
+#    systemctl disable maratona-firstboot.service
+#  fi
+#fi
 
 date >$TMPFILE
 rm -f $TMPFILE $TMPFILE.auth
