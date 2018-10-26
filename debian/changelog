@@ -1,3 +1,22 @@
+maratona-firstboot (20181020.4) bionic; urgency=medium
+
+  * LATAM fixes
+
+ -- Bruno Cesar Ribas <brunoribas@gmail.com>  Wed, 24 Oct 2018 15:53:47 -0300
+
+maratona-firstboot (20181020.3) bionic; urgency=medium
+
+  * Bug fixes
+
+ -- Bruno Cesar Ribas <brunoribas@gmail.com>  Mon, 22 Oct 2018 10:13:38 -0300
+
+maratona-firstboot (20181020.2) bionic; urgency=medium
+
+  * service start after tty3
+  * maratona-config: start firewall after configuration
+
+ -- Bruno Cesar Ribas <brunoribas@gmail.com>  Sun, 21 Oct 2018 11:15:29 -0300
+
 maratona-firstboot (20181020.1) bionic; urgency=medium
 
   * Service start after snapd
